@@ -16,8 +16,8 @@
 
             connection.start();
 
-            $("btn__sendMessage").click(() => {
-                let message = $("txt__message").val();
+            $("#btn__sendMessage").click(() => {
+                let message = $("#txt__message").val();
                 connection.invoke("SendMessageAsync" , message)
                 .catch(error => console.log(`An error occurred while sending the message : ${error}`));
             })
@@ -32,6 +32,5 @@
     <button id="btn__sendMessage"> Send </button>
     
 
-    <script src="./main.js"></script>
 </body>
 </html>

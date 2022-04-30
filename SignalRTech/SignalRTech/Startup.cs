@@ -24,6 +24,15 @@ namespace SignalRTech
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+
+            services.AddCors(options => options.AddDefaultPolicy(policy => 
+
+                policy.AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials()
+                        .SetIsOriginAllowed(origin => true)                
+                
+            ));
             services.AddSignalR();
         }
 
@@ -41,12 +50,15 @@ namespace SignalRTech
 
             app.UseStaticFiles();
 
+            app.UseCors();
             app.UseRouting();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                //http://localhost:5000/chathub
+
                 endpoints.MapHub<ChatHub>("/chathub");
             });
         }
