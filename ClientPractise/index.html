@@ -21,6 +21,10 @@
                 connection.invoke("SendMessageAsync" , message)
                 .catch(error => console.log(`An error occurred while sending the message : ${error}`));
             })
+
+            connection.on("receiveMessage" , message => {
+                $("div").append(message + "<br/>");
+            })
         });
 
     </script>
@@ -31,6 +35,9 @@
 
     <button id="btn__sendMessage"> Send </button>
     
+    <div>
+
+    </div>
 
 </body>
 </html>
