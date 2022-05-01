@@ -12,9 +12,25 @@
     <script>
         $(document).ready(() => {
             const connection = new signalR.HubConnectionBuilder()
-            .withUrl("http://localhost:5000/chathub").build();
+            .withUrl("http://localhost:5000/chathub")
+            .withAutomaticReconnect()  // ->> Server ile connection olub sonradan qopduqu caselerde 
+                                                //Bu function mueyyen araliqlarla connection etmeye calisir
+            .build();
 
-            connection.start();
+
+            // Server ile connectionun hec qurulmadiqi caselerde asaqidaki function ile 
+            // mueyyen time intervalinda connection etmeye calisir .Recursive bir function olmalidir.
+
+            async function start(){
+                try {
+                   await connection.start();
+                } catch (error) {
+                    setTimeout(() => start(), 3000);
+                }
+            }
+            
+            start();
+            // connection.start();
 
             $("#btn__sendMessage").click(() => {
                 let message = $("#txt__message").val();
@@ -25,6 +41,10 @@
             connection.on("receiveMessage" , message => {
                 $("div").append(message + "<br/>");
             })
+
+             
+
+
         });
 
     </script>
