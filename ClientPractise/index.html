@@ -71,14 +71,25 @@
                 situation.css("color", "white");
                 situation.html(`${connectionId} connected`);
                 animation()
-            })
+            });
 
             connection.on("userLeaved" , connectionId => {
                 situation.css("background-color", "red");
                 situation.css("color", "white");
                 situation.html(`${connectionId} leaved`);
                 animation()
-            })
+            });
+
+            connection.on("clients" , clientsData => {
+
+                let data = "";
+                $.each(clientsData , (index , item) => {
+                    data += `<li> ${item} </li>`;
+                });
+                $("#clients").html(data);
+            });
+
+            
 
 
             // Connection Lifetime Events end
@@ -107,6 +118,8 @@
     <button id="btn__sendMessage"> Send </button>
     
     <div id="message"></div>
+
+    <ul id="clients"></ul>
 
 </body>
 </html>
