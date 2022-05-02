@@ -37,38 +37,48 @@
 
             const situation = $("#situation");
 
-            connection.onreconnecting(error => {
-                situation.css("background-color", "blue");
-                situation.css("color", "white");
-                situation.html("Connecting...");
+            function animation(){
                 situation.fadeIn(2000 , () =>{
                     setTimeout(() => {
                         situation.fadeOut(2000);
                     }, 2000);
                 });
+            }
+
+            connection.onreconnecting(error => {
+                situation.css("background-color", "blue");
+                situation.css("color", "white");
+                situation.html("Connecting...");
+                animation()
             });
 
             connection.onreconnected(connectionId => {
                 situation.css("background-color", "green");
                 situation.css("color", "white");
                 situation.html("Connected");
-                situation.fadeIn(2000 , () =>{
-                    setTimeout(() => {
-                        situation.fadeOut(2000);
-                    }, 2000);
-                });
+                animation()
             });
 
             connection.onclose(connectionId => {
                 situation.css("background-color", "red");
                 situation.css("color", "white");
                 situation.html("Connecting failed");
-                situation.fadeIn(2000 , () =>{
-                    setTimeout(() => {
-                        situation.fadeOut(2000);
-                    }, 2000);
-                });
+                animation()
             });
+
+            connection.on("userJoined" , connectionId => {
+                situation.css("background-color", "green");
+                situation.css("color", "white");
+                situation.html(`${connectionId} connected`);
+                animation()
+            })
+
+            connection.on("userLeaved" , connectionId => {
+                situation.css("background-color", "red");
+                situation.css("color", "white");
+                situation.html(`${connectionId} leaved`);
+                animation()
+            })
 
 
             // Connection Lifetime Events end
