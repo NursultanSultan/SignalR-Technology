@@ -13,10 +13,10 @@ namespace SignalRTech.Hubs
         /// </summary>
         public static List<string> clients = new List<string>();
 
-        public async Task SendMessageAsync(string message)
-        {
-            await Clients.All.SendAsync("receiveMessage", message);
-        }
+        //public async Task SendMessageAsync(string message)  //Bu methodu IHubContext istifade etdiyimiz bir class da yoxlayaq
+        //{
+        //    await Clients.All.SendAsync("receiveMessage", message);
+        //}
  
         /// <summary>
         /// Sisteme (Hub- a)  bir client daxil olduqda bu method tetiklenir

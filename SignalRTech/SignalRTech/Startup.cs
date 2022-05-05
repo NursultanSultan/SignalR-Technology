@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SignalRTech.Business;
 using SignalRTech.Hubs;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,12 @@ namespace SignalRTech
                         .SetIsOriginAllowed(origin => true)                
                 
             ));
+
+            services.AddTransient<MyBusiness>();
+
             services.AddSignalR();
+
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +66,7 @@ namespace SignalRTech
                 //http://localhost:5000/chathub
 
                 endpoints.MapHub<ChatHub>("/chathub");
+                endpoints.MapControllers();
             });
         }
     }
