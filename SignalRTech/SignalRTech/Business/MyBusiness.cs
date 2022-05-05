@@ -16,7 +16,7 @@ namespace SignalRTech.Business
             _hubContext = hubContext;
         }
 
-        public async Task SendMessageAsync(string message)  
+        public async Task SendMessageAsync(string message)
         {
             await _hubContext.Clients.All.SendAsync("receiveMessage", message);
         }
