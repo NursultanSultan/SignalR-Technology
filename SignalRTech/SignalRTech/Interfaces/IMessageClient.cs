@@ -10,7 +10,7 @@ namespace SignalRTech.Interfaces
         Task Clients(List<string> clients);
         Task UserJoined(string connectionId);
         Task UserLeaved(string connectionId);
-        Task RecevieMessage(string message);
+        Task ReceiveMessage(string message);
 
     }
 }
